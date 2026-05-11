@@ -37,13 +37,7 @@ function AppRoutes() {
           </GameProvider>
         </ProtectedRoute>
       } />
-      <Route path="/placement-quiz" element={
-        <ProtectedRoute>
-          <GameProvider>
-            <PlacementQuiz />
-          </GameProvider>
-        </ProtectedRoute>
-      } />
+      <Route path="/placement-quiz" element={<PlacementQuiz />} />
       <Route path="/dashboard" element={
         <ProtectedRoute>
           <GameProvider>
