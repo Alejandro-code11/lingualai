@@ -142,22 +142,37 @@ export function GameProvider({ children }: { children: ReactNode }) {
 
   const loadProfile = async () => {
     if (!user) return
+    const localKey = `linguaai_user_${user.uid}`
+
+    // 1. Intentar Firestore
     try {
       const ref = doc(db, 'users', user.uid)
       const snap = await getDoc(ref)
       if (snap.exists()) {
-        dispatch({ type: 'SET_PROFILE', payload: snap.data() as UserProfile })
-      } else {
-        const profile = buildNewProfile()
-        try { await setDoc(ref, profile) } catch (e) { console.warn('Could not save to Firestore:', e) }
-        dispatch({ type: 'SET_PROFILE', payload: profile })
+        const data = snap.data() as UserProfile
+        localStorage.setItem(localKey, JSON.stringify(data))
+        dispatch({ type: 'SET_PROFILE', payload: data })
+        return
       }
     } catch (e) {
-      // Si Firestore falla (no configurado, sin permisos), usar perfil local
-      console.warn('Firestore unavailable, using local profile:', e)
-      const profile = buildNewProfile()
-      dispatch({ type: 'SET_PROFILE', payload: profile })
+      console.warn('Firestore unavailable:', e)
     }
+
+    // 2. Intentar localStorage backup
+    const backup = localStorage.getItem(localKey)
+    if (backup) {
+      try {
+        const data = JSON.parse(backup) as UserProfile
+        dispatch({ type: 'SET_PROFILE', payload: data })
+        return
+      } catch {/* empty */}
+    }
+
+    // 3. Crear perfil nuevo (recupera nivel del quiz si existe)
+    const profile = buildNewProfile()
+    localStorage.setItem(localKey, JSON.stringify(profile))
+    try { await setDoc(doc(db, 'users', user.uid), profile) } catch {/* empty */}
+    dispatch({ type: 'SET_PROFILE', payload: profile })
   }
 
   const saveProfile = async () => {
@@ -166,11 +181,13 @@ export function GameProvider({ children }: { children: ReactNode }) {
       localStorage.setItem('linguaai_guest', JSON.stringify(state.profile))
       return
     }
+    // Siempre guardar localmente como backup
+    const localKey = `linguaai_user_${user.uid}`
+    localStorage.setItem(localKey, JSON.stringify(state.profile))
     try {
       await setDoc(doc(db, 'users', user.uid), state.profile)
     } catch (e) {
-      console.warn('Could not save to Firestore, falling back to localStorage:', e)
-      localStorage.setItem(`linguaai_user_${user.uid}`, JSON.stringify(state.profile))
+      console.warn('Firestore save failed, kept in localStorage:', e)
     }
   }
 

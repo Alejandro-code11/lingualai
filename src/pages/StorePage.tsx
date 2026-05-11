@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import { motion } from 'framer-motion'
-import { ShoppingBag, Lock, CheckCircle } from 'lucide-react'
+import { motion, AnimatePresence } from 'framer-motion'
+import { ShoppingBag, Lock, CheckCircle, X } from 'lucide-react'
 import { storeItems, skinTones } from '../data/store'
 import { useGame } from '../contexts/GameContext'
 import Character from '../components/Character'
@@ -25,6 +25,7 @@ export default function StorePage() {
   const profile = state.profile
   const [category, setCategory] = useState<Category>('all')
   const [feedback, setFeedback] = useState<string | null>(null)
+  const [previewItem, setPreviewItem] = useState<typeof storeItems[0] | null>(null)
 
   if (!profile) return null
 
@@ -37,6 +38,11 @@ export default function StorePage() {
     return levelOrder.indexOf(profile.level) < levelOrder.indexOf(unlockLevel)
   }
 
+  // Equipo con preview: el personaje muestra el item temporalmente
+  const previewEquipped = previewItem
+    ? { ...profile.equippedItems, [previewItem.type]: previewItem.id }
+    : profile.equippedItems
+
   const handleBuy = async (item: typeof storeItems[0]) => {
     if (profile.coins < item.price) { setFeedback('No tienes suficientes coins 🪙'); setTimeout(() => setFeedback(null), 2500); return }
     if (isLevelLocked(item.unlockLevel)) { setFeedback(`Necesitas nivel ${item.unlockLevel} 🔒`); setTimeout(() => setFeedback(null), 2500); return }
@@ -44,6 +50,7 @@ export default function StorePage() {
     dispatch({ type: 'PURCHASE_ITEM', payload: item.id })
     dispatch({ type: 'EQUIP_ITEM', payload: { type: item.type, id: item.id } })
     await saveProfile()
+    setPreviewItem(null)
     setFeedback('¡Comprado y puesto! 🎉')
     setTimeout(() => setFeedback(null), 2500)
   }
@@ -67,7 +74,7 @@ export default function StorePage() {
               <h1 className="text-2xl font-bold text-textbase flex items-center gap-2">
                 <ShoppingBag size={24} className="text-primary-light" /> Tienda
               </h1>
-              <p className="text-muted text-sm mt-1">Gana coins estudiando y personaliza tu personaje</p>
+              <p className="text-muted text-sm mt-1">Toca un item para ver cómo se ve antes de comprar</p>
             </div>
             <div className="flex items-center gap-1.5 bg-surface px-3 py-2 rounded-xl border border-border">
               <span className="text-lg">🪙</span>
@@ -75,7 +82,6 @@ export default function StorePage() {
             </div>
           </div>
 
-          {/* Feedback toast */}
           {feedback && (
             <motion.div
               initial={{ opacity: 0, y: -10 }}
@@ -90,13 +96,77 @@ export default function StorePage() {
             {/* Character preview */}
             <div className="lg:col-span-1">
               <div className="glass rounded-2xl p-6 flex flex-col items-center gap-4 sticky top-20">
-                <p className="text-sm text-muted">Vista previa</p>
-                <Character
-                  equippedItems={profile.equippedItems}
-                  skinTone={profile.skinTone}
-                  size="lg"
-                  animated
-                />
+                <p className="text-sm text-muted">
+                  {previewItem ? '👀 Vista previa' : 'Tu personaje'}
+                </p>
+                <motion.div
+                  key={previewItem?.id ?? 'normal'}
+                  initial={{ scale: 0.9, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                >
+                  <Character
+                    equippedItems={previewEquipped}
+                    skinTone={profile.skinTone}
+                    size="lg"
+                    animated
+                  />
+                </motion.div>
+
+                {/* Preview item info */}
+                <AnimatePresence>
+                  {previewItem && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
+                      className="w-full glass rounded-xl p-4 border border-primary/30"
+                    >
+                      <div className="flex items-center justify-between mb-3">
+                        <div>
+                          <p className="text-sm font-semibold text-textbase">{previewItem.name}</p>
+                          <p className="text-xs text-muted capitalize">{previewItem.type}</p>
+                        </div>
+                        <button
+                          onClick={() => setPreviewItem(null)}
+                          className="text-muted hover:text-textbase p-1"
+                        >
+                          <X size={14} />
+                        </button>
+                      </div>
+
+                      {isOwned(previewItem.id) ? (
+                        isEquipped(previewItem.id) ? (
+                          <div className="text-center text-xs text-success font-medium flex items-center justify-center gap-1">
+                            <CheckCircle size={12} /> Ya lo tienes puesto
+                          </div>
+                        ) : (
+                          <button
+                            onClick={() => handleEquip(previewItem)}
+                            className="w-full gradient-bg text-white font-semibold py-2 rounded-xl text-sm hover:opacity-90 transition-opacity"
+                          >
+                            Ponérmelo
+                          </button>
+                        )
+                      ) : (
+                        <button
+                          onClick={() => handleBuy(previewItem)}
+                          disabled={profile.coins < previewItem.price || isLevelLocked(previewItem.unlockLevel)}
+                          className={`w-full font-semibold py-2 rounded-xl text-sm transition-all flex items-center justify-center gap-1.5 ${
+                            profile.coins >= previewItem.price && !isLevelLocked(previewItem.unlockLevel)
+                              ? 'gradient-bg text-white glow-primary hover:opacity-90'
+                              : 'bg-surface border border-border text-muted cursor-not-allowed'
+                          }`}
+                        >
+                          {isLevelLocked(previewItem.unlockLevel) ? (
+                            <><Lock size={12} /> Nivel {previewItem.unlockLevel}</>
+                          ) : (
+                            <>🪙 Comprar por {previewItem.price}</>
+                          )}
+                        </button>
+                      )}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
 
                 {/* Skin tones */}
                 <div>
@@ -118,7 +188,6 @@ export default function StorePage() {
 
             {/* Items */}
             <div className="lg:col-span-2">
-              {/* Category filter */}
               <div className="flex gap-2 overflow-x-auto pb-2 mb-5 scrollbar-hide">
                 {categories.map(cat => (
                   <button
@@ -140,16 +209,24 @@ export default function StorePage() {
                   const owned = isOwned(item.id)
                   const equipped = isEquipped(item.id)
                   const locked = isLevelLocked(item.unlockLevel)
-                  const canAfford = profile.coins >= item.price
+                  const previewing = previewItem?.id === item.id
 
                   return (
-                    <motion.div
+                    <motion.button
                       key={item.id}
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: i * 0.03 }}
-                      className={`glass rounded-xl p-4 flex flex-col items-center gap-2 text-center transition-all ${locked ? 'opacity-50' : ''} ${equipped ? 'border-primary/40 glow-primary' : 'card-hover'}`}
+                      onClick={() => setPreviewItem(item)}
+                      className={`glass rounded-xl p-4 flex flex-col items-center gap-2 text-center transition-all relative ${
+                        locked ? 'opacity-50' : 'card-hover'
+                      } ${equipped ? 'border-primary/40 glow-primary' : ''} ${previewing ? 'border-primary' : ''}`}
                     >
+                      {equipped && (
+                        <div className="absolute top-1 right-1">
+                          <CheckCircle size={14} className="text-success" />
+                        </div>
+                      )}
                       <span className="text-3xl">{item.emoji}</span>
                       <p className="text-xs font-medium text-textbase">{item.name}</p>
 
@@ -163,30 +240,16 @@ export default function StorePage() {
                         <div className="flex items-center gap-1 text-xs text-muted">
                           <Lock size={10} /> Nivel {item.unlockLevel}
                         </div>
-                      ) : equipped ? (
-                        <div className="flex items-center gap-1 text-xs text-success font-medium">
-                          <CheckCircle size={12} /> Puesto
-                        </div>
                       ) : owned ? (
-                        <button
-                          onClick={() => handleEquip(item)}
-                          className="text-xs bg-primary/20 text-primary-light px-3 py-1 rounded-lg hover:bg-primary/30 transition-colors font-medium"
-                        >
-                          Ponerse
-                        </button>
+                        <span className="text-xs text-muted">
+                          {equipped ? 'Puesto ✓' : 'Comprado'}
+                        </span>
                       ) : (
-                        <button
-                          onClick={() => handleBuy(item)}
-                          className={`flex items-center gap-1 text-xs font-semibold px-3 py-1.5 rounded-lg transition-all ${
-                            canAfford
-                              ? 'gradient-bg text-white hover:opacity-90'
-                              : 'bg-surface border border-border text-muted cursor-not-allowed'
-                          }`}
-                        >
+                        <div className="flex items-center gap-1 text-xs text-gold font-semibold">
                           🪙 {item.price}
-                        </button>
+                        </div>
                       )}
-                    </motion.div>
+                    </motion.button>
                   )
                 })}
               </div>

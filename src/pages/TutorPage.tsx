@@ -53,15 +53,40 @@ export default function TutorPage() {
     setLoading(true)
     try {
       const level = profile?.level ?? 'A1'
+
+      // Adaptar idioma según nivel del estudiante
+      const languageRules: Record<string, string> = {
+        A1: `- IMPORTANTE: Habla principalmente en ESPAÑOL para que el estudiante entienda.
+- Enseña frases o palabras simples en inglés con su traducción al español.
+- Ejemplo: "¿Cómo te llamas? In English we say: 'What is your name?' Try to answer with: 'My name is...'"
+- Si el estudiante responde mal, corrige con cariño y muestra cómo decirlo correctamente.`,
+        A2: `- Mezcla español e inglés (60% español, 40% inglés).
+- Pregunta cosas básicas en inglés pero explica en español si es necesario.
+- Anima al estudiante a responder en inglés, pero acepta español también.`,
+        B1: `- Habla principalmente en inglés (70% inglés, 30% español).
+- Usa español solo para aclarar conceptos difíciles o nueva vocabulario.
+- Espera que el estudiante responda en inglés.`,
+        B2: `- Habla 90% en inglés, solo aclara con español cuando sea necesario.
+- Exige que el estudiante responda en inglés.
+- Corrige errores de manera natural integrando la forma correcta en tu respuesta.`,
+        C1: `- Habla 100% en inglés con vocabulario avanzado.
+- Discute temas complejos, modismos, cultura.
+- Tu rol es desafiar al estudiante con conversación nativa.`,
+        C2: `- Habla solo en inglés con todo el vocabulario y matices que usaría un hablante nativo.
+- Reta al estudiante con temas filosóficos, técnicos, literarios.`,
+      }
+
       const systemPrompt = `You are LinguaAI, a friendly English tutor for a Spanish-speaking student at ${level} level.
 Your job: ${selectedScenario.prompt}
-Rules:
-- Speak in English but adapt complexity to ${level} level
-- Gently correct grammar mistakes by including the correct form in your response
-- Be encouraging and patient
-- Keep responses short (2-4 sentences max)
-- If the student writes in Spanish, gently remind them to try in English and help them
-- After every 5 messages, give a short tip or encouragement`
+
+LANGUAGE RULES for ${level} level:
+${languageRules[level] ?? languageRules.A1}
+
+GENERAL RULES:
+- Be encouraging and patient.
+- Keep responses short (2-4 sentences max).
+- Gently correct grammar mistakes by showing the correct form.
+- After every 5 exchanges, give a short tip or encouragement.`
 
       const msgs = history.map(m => ({ role: m.role, content: m.content }))
       if (!isSystem) msgs.push({ role: 'user', content: userMsg })
@@ -93,33 +118,66 @@ Rules:
   }
 
   const getFallbackResponse = (_msg: string, scenario: string): string => {
-    const responses: Record<string, string[]> = {
+    const level = profile?.level ?? 'A1'
+    const isBeginner = level === 'A1' || level === 'A2'
+
+    const beginnerResponses: Record<string, string[]> = {
       intro: [
-        "Hi! I'm your English tutor. Let's practice! Can you tell me your name? Say: 'My name is...'",
-        "Great! Nice to meet you! Where are you from? Say: 'I am from...'",
-        "Wonderful! How old are you? Say: 'I am ___ years old.'",
+        "¡Hola! Soy tu tutor de inglés. Vamos a practicar. ¿Cómo te llamas? Responde diciendo: 'My name is...' (Mi nombre es...)",
+        "¡Excelente! Nice to meet you (Mucho gusto). ¿De dónde eres? Responde: 'I am from...' (Soy de...)",
+        "Muy bien. ¿Cuántos años tienes? Responde: 'I am ___ years old.' (Tengo ___ años)",
       ],
       class: [
-        "Good morning, class! Today we're going to talk about technology. What do you know about the internet?",
-        "Interesting! Can you tell me more? Use the phrase: 'I think that...'",
-        "Very good! Now, can you write one sentence about technology?",
+        "Imagina que estamos en clase. El profesor dice: 'Open your books'. ¿Qué significa? Es 'Abran sus libros'. Ahora dime algo que sepas de la tecnología en inglés.",
+        "Bien. Practiquemos: ¿cómo dirías 'No entiendo' en inglés? Es: 'I don't understand'. Inténtalo.",
+        "Para preguntar algo en clase, di: 'Can you repeat, please?' (¿Puede repetir, por favor?). Practícalo.",
       ],
       free: [
-        "Hello! I'm so happy to practice English with you! How are you feeling today?",
-        "That's great! What do you like to do in your free time?",
-        "Wonderful! Tell me more — I want to know everything about you!",
+        "¡Hola! Vamos a practicar inglés relajado. ¿Cómo te sientes hoy? En inglés se dice: 'How do you feel today?'. Responde con: 'I feel good' o 'I feel tired'.",
+        "Genial. ¿Qué te gusta hacer en tu tiempo libre? Practica diciendo: 'I like to ___' (Me gusta ___).",
+        "Muy bien. Cuéntame más, en inglés si puedes. Si no sabes una palabra, escríbela en español.",
       ],
       restaurant: [
-        "Good evening! Welcome to our restaurant. Can I see your reservation?",
-        "Perfect! Here is your table. Can I get you something to drink?",
-        "Excellent choice! Are you ready to order your food?",
+        "Imagina que entras a un restaurante. El mesero dice: 'Good evening! Welcome.' (Buenas noches, bienvenido). ¿Qué responderías? Di: 'Thank you' o 'Hello'.",
+        "Pides la carta diciendo: 'Can I see the menu, please?' (¿Puedo ver la carta?). Practícalo.",
+        "Para ordenar di: 'I would like ___, please.' (Me gustaría ___, por favor). ¿Qué quieres comer?",
       ],
       store: [
-        "Hello! Welcome to the store. How can I help you today?",
-        "Of course! What size are you looking for?",
-        "That looks great on you! Will you be paying by cash or card?",
+        "Estás en una tienda. La empleada dice: 'How can I help you?' (¿En qué te puedo ayudar?). Responde: 'I'm looking for ___' (Estoy buscando ___).",
+        "Para preguntar el precio: 'How much is this?' (¿Cuánto cuesta esto?). Practícalo.",
+        "Para pagar, di: 'I'll take it' (Me lo llevo) o 'I'll pay with card' (Pagaré con tarjeta).",
       ],
     }
+
+    const advancedResponses: Record<string, string[]> = {
+      intro: [
+        "Hi! I'm your English tutor. Tell me your name and a bit about yourself.",
+        "Great! Where are you from and what do you do?",
+        "Wonderful! Tell me about your hobbies or what you enjoy doing.",
+      ],
+      class: [
+        "Good morning! Today's topic is technology. What's your opinion about AI?",
+        "Interesting point. Can you elaborate on that?",
+        "Now, write a short paragraph defending your opinion.",
+      ],
+      free: [
+        "Hello! How has your week been going so far?",
+        "That sounds interesting! Tell me more about it.",
+        "What are your plans for the weekend?",
+      ],
+      restaurant: [
+        "Good evening! Welcome. Do you have a reservation?",
+        "Perfect. Here's your table. What would you like to drink?",
+        "Excellent choice. Are you ready to order, or do you need more time?",
+      ],
+      store: [
+        "Hello! Welcome. Is there anything specific you're looking for today?",
+        "Of course. What size and color would you prefer?",
+        "Great choice! Will you be paying by cash or card?",
+      ],
+    }
+
+    const responses = isBeginner ? beginnerResponses : advancedResponses
     const list = responses[scenario] ?? responses.free
     return list[Math.floor(Math.random() * list.length)]
   }
