@@ -121,26 +121,41 @@ export function GameProvider({ children }: { children: ReactNode }) {
     loadProfile()
   }, [user])
 
+  const buildNewProfile = (): UserProfile => {
+    const savedLevel = localStorage.getItem('linguaai_quiz_level') as CEFRLevel | null
+    const guestData = localStorage.getItem('linguaai_guest')
+    const guest = guestData ? JSON.parse(guestData) : null
+    const profile = defaultProfile(
+      user?.uid ?? 'guest',
+      user?.email ?? '',
+      user?.displayName ?? 'Learner'
+    )
+    if (savedLevel) profile.level = savedLevel
+    if (guest) {
+      profile.coins = guest.coins
+      profile.completedLessons = guest.completedLessons
+    }
+    localStorage.removeItem('linguaai_quiz_level')
+    localStorage.removeItem('linguaai_guest')
+    return profile
+  }
+
   const loadProfile = async () => {
     if (!user) return
-    const ref = doc(db, 'users', user.uid)
-    const snap = await getDoc(ref)
-    if (snap.exists()) {
-      dispatch({ type: 'SET_PROFILE', payload: snap.data() as UserProfile })
-    } else {
-      // Recover quiz level and guest progress if exists
-      const savedLevel = localStorage.getItem('linguaai_quiz_level') as CEFRLevel | null
-      const guestData = localStorage.getItem('linguaai_guest')
-      const guest = guestData ? JSON.parse(guestData) : null
-      const profile = defaultProfile(user.uid, user.email ?? '', user.displayName ?? 'Learner')
-      if (savedLevel) profile.level = savedLevel
-      if (guest) {
-        profile.coins = guest.coins
-        profile.completedLessons = guest.completedLessons
+    try {
+      const ref = doc(db, 'users', user.uid)
+      const snap = await getDoc(ref)
+      if (snap.exists()) {
+        dispatch({ type: 'SET_PROFILE', payload: snap.data() as UserProfile })
+      } else {
+        const profile = buildNewProfile()
+        try { await setDoc(ref, profile) } catch (e) { console.warn('Could not save to Firestore:', e) }
+        dispatch({ type: 'SET_PROFILE', payload: profile })
       }
-      localStorage.removeItem('linguaai_quiz_level')
-      localStorage.removeItem('linguaai_guest')
-      await setDoc(ref, profile)
+    } catch (e) {
+      // Si Firestore falla (no configurado, sin permisos), usar perfil local
+      console.warn('Firestore unavailable, using local profile:', e)
+      const profile = buildNewProfile()
       dispatch({ type: 'SET_PROFILE', payload: profile })
     }
   }
@@ -151,7 +166,12 @@ export function GameProvider({ children }: { children: ReactNode }) {
       localStorage.setItem('linguaai_guest', JSON.stringify(state.profile))
       return
     }
-    await setDoc(doc(db, 'users', user.uid), state.profile)
+    try {
+      await setDoc(doc(db, 'users', user.uid), state.profile)
+    } catch (e) {
+      console.warn('Could not save to Firestore, falling back to localStorage:', e)
+      localStorage.setItem(`linguaai_user_${user.uid}`, JSON.stringify(state.profile))
+    }
   }
 
   const completeLesson = async (lessonId: string, coins: number, xp: number, minutes: number) => {
