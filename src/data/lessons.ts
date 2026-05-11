@@ -428,6 +428,298 @@ export const lessons: Lesson[] = [
       },
     ],
   },
+
+  // ========== Más A1 ==========
+  {
+    id: 'a1-family',
+    title: 'La Familia',
+    level: 'A1', type: 'vocabulary', xpReward: 30, coins: 10,
+    exercises: [
+      { id: 'fa1', type: 'multiple-choice', question: '¿Cómo se dice "madre" en inglés?', options: ['Father', 'Mother', 'Sister', 'Brother'], correct: 1 },
+      { id: 'fa2', type: 'multiple-choice', question: '¿Qué significa "brother"?', options: ['Hermana', 'Padre', 'Hermano', 'Hijo'], correct: 2 },
+      { id: 'fa3', type: 'multiple-choice', question: '¿Cómo se dice "abuelo" en inglés?', options: ['Uncle', 'Cousin', 'Grandfather', 'Father'], correct: 2 },
+      { id: 'fa4', type: 'multiple-choice', question: '¿Qué significa "daughter"?', options: ['Hijo', 'Hija', 'Sobrina', 'Esposa'], correct: 1 },
+      { id: 'fa5', type: 'multiple-choice', question: 'Completa: "My ___ is my mother\'s sister." (Mi tía)', options: ['cousin', 'aunt', 'niece', 'sister'], correct: 1, hint: '"Aunt" significa tía.' },
+    ],
+  },
+  {
+    id: 'a1-animals',
+    title: 'Los Animales',
+    level: 'A1', type: 'vocabulary', xpReward: 25, coins: 10,
+    exercises: [
+      { id: 'an1', type: 'multiple-choice', question: '¿Cómo se dice "perro" en inglés?', options: ['Cat', 'Dog', 'Bird', 'Fish'], correct: 1 },
+      { id: 'an2', type: 'multiple-choice', question: '¿Qué animal es un "horse"?', options: ['Vaca', 'Cerdo', 'Caballo', 'Conejo'], correct: 2 },
+      { id: 'an3', type: 'multiple-choice', question: '¿Cómo se dice "elefante" en inglés?', options: ['Lion', 'Elephant', 'Tiger', 'Bear'], correct: 1 },
+      { id: 'an4', type: 'multiple-choice', question: '¿Qué significa "fish"?', options: ['Pájaro', 'Pez', 'Insecto', 'Serpiente'], correct: 1 },
+      { id: 'an5', type: 'multiple-choice', question: '¿Cómo se dice "gato" en inglés?', options: ['Cat', 'Cow', 'Cot', 'Calf'], correct: 0 },
+    ],
+  },
+  {
+    id: 'a1-articles',
+    title: 'Artículos: a / an / the',
+    level: 'A1', type: 'grammar', xpReward: 35, coins: 12,
+    exercises: [
+      { id: 'ar1', type: 'multiple-choice', question: 'Completa: "I have ___ apple." (Tengo una manzana)', options: ['a', 'an', 'the', 'some'], correct: 1, hint: '"Apple" empieza con vocal → "an".' },
+      { id: 'ar2', type: 'multiple-choice', question: 'Completa: "She is ___ teacher." (Ella es maestra)', options: ['a', 'an', 'the', '—'], correct: 0, hint: '"Teacher" empieza con consonante → "a".' },
+      { id: 'ar3', type: 'multiple-choice', question: 'Completa: "___ sun is bright." (El sol brilla)', options: ['A', 'An', 'The', '—'], correct: 2, hint: 'El sol es único → "the".' },
+      { id: 'ar4', type: 'multiple-choice', question: '¿Cuándo usar "an"?', options: ['Antes de consonante', 'Antes de vocal', 'Antes de plural', 'Antes de nombre propio'], correct: 1 },
+      { id: 'ar5', type: 'multiple-choice', question: 'Completa: "I bought ___ car yesterday."', options: ['a', 'an', 'the', '—'], correct: 0, hint: '"Car" empieza con consonante → "a".' },
+    ],
+  },
+
+  // ========== Más A2 ==========
+  {
+    id: 'a2-future',
+    title: 'Futuro: going to / will',
+    level: 'A2', type: 'grammar', xpReward: 40, coins: 15,
+    exercises: [
+      { id: 'fu1', type: 'multiple-choice', question: 'Completa: "Tomorrow I ___ visit my grandma." (Mañana voy a visitar)', options: ['will', 'am going to', 'going', 'goes'], correct: 1, hint: 'Plan futuro = "going to + verbo".' },
+      { id: 'fu2', type: 'multiple-choice', question: 'Para una decisión espontánea: "OK, I ___ help you."', options: ['will', 'am going to', 'going to', 'go to'], correct: 0, hint: '"Will" para decisiones de ese momento.' },
+      { id: 'fu3', type: 'multiple-choice', question: '¿Qué diferencia hay entre "will" y "going to"?', options: ['Significan lo mismo siempre', '"Will" es para planes, "going to" para promesas', '"Going to" es para planes, "will" para decisiones espontáneas', 'Solo se usa "will"'], correct: 2 },
+      { id: 'fu4', type: 'multiple-choice', question: 'Completa: "Look at those clouds! It ___ rain." (Va a llover - hay evidencia)', options: ['will', 'is going to', 'rains', 'going'], correct: 1, hint: 'Hay evidencia visible → "going to".' },
+      { id: 'fu5', type: 'multiple-choice', question: 'Completa: "I think she ___ pass the exam." (predicción)', options: ['will', 'is going to', 'goes to', 'going'], correct: 0, hint: 'Predicción/opinión → "will".' },
+    ],
+  },
+  {
+    id: 'a2-comparatives',
+    title: 'Comparativos y Superlativos',
+    level: 'A2', type: 'grammar', xpReward: 40, coins: 15,
+    exercises: [
+      { id: 'cm1', type: 'multiple-choice', question: 'Completa: "She is ___ than me." (más alta que yo)', options: ['tall', 'taller', 'tallest', 'more tall'], correct: 1, hint: 'Adjetivos cortos: +er.' },
+      { id: 'cm2', type: 'multiple-choice', question: '¿Cuál es el superlativo de "good"?', options: ['Gooder', 'Better', 'Best', 'More good'], correct: 2, hint: '"Good" es irregular: good → better → best.' },
+      { id: 'cm3', type: 'multiple-choice', question: 'Completa: "This movie is ___ interesting than the other." (más interesante)', options: ['interesting', 'more interesting', 'interestinger', 'most interesting'], correct: 1, hint: 'Adjetivos largos: more + adjetivo.' },
+      { id: 'cm4', type: 'multiple-choice', question: 'Completa: "Mount Everest is the ___ mountain." (la más alta)', options: ['higher', 'highest', 'high', 'most high'], correct: 1 },
+      { id: 'cm5', type: 'multiple-choice', question: '¿Cuál es el comparativo de "bad"?', options: ['Badder', 'More bad', 'Worse', 'Worst'], correct: 2, hint: '"Bad" es irregular: bad → worse → worst.' },
+    ],
+  },
+  {
+    id: 'a2-modals',
+    title: 'Modales: can / should / must',
+    level: 'A2', type: 'grammar', xpReward: 40, coins: 15,
+    exercises: [
+      { id: 'mo1', type: 'multiple-choice', question: 'Completa: "I ___ speak English." (Puedo hablar inglés)', options: ['can', 'must', 'should', 'have to'], correct: 0, hint: '"Can" expresa habilidad.' },
+      { id: 'mo2', type: 'multiple-choice', question: 'Completa: "You ___ study for the exam." (Deberías estudiar)', options: ['can', 'must', 'should', 'might'], correct: 2, hint: '"Should" expresa consejo o recomendación.' },
+      { id: 'mo3', type: 'multiple-choice', question: 'Completa: "Drivers ___ stop at red lights." (Deben parar - obligación)', options: ['can', 'should', 'must', 'might'], correct: 2, hint: '"Must" expresa obligación fuerte.' },
+      { id: 'mo4', type: 'multiple-choice', question: '¿Qué significa "I can\'t swim"?', options: ['Yo no quiero nadar', 'Yo no sé nadar', 'Yo no puedo nadar', 'Yo nadaré'], correct: 1 },
+      { id: 'mo5', type: 'multiple-choice', question: 'Completa: "It ___ rain tomorrow." (Tal vez llueva)', options: ['must', 'might', 'can', 'should'], correct: 1, hint: '"Might" expresa posibilidad.' },
+    ],
+  },
+
+  // ========== B1 — empieza más inglés ==========
+  {
+    id: 'b1-present-perfect',
+    title: 'Present Perfect (have + participio)',
+    level: 'B1', type: 'grammar', xpReward: 50, coins: 18,
+    exercises: [
+      { id: 'pp1', type: 'multiple-choice', question: 'Completa: "I ___ never been to Europe." (Nunca he estado en Europa)', options: ['am', 'was', 'have', 'had'], correct: 2, hint: 'Present perfect = have/has + participio.' },
+      { id: 'pp2', type: 'multiple-choice', question: 'Completa: "She ___ just finished her homework."', options: ['have', 'has', 'is', 'was'], correct: 1, hint: 'She/He/It → "has".' },
+      { id: 'pp3', type: 'multiple-choice', question: 'Choose the correct sentence:', options: ['I have saw that movie.', 'I have seen that movie.', 'I has seen that movie.', 'I am seen that movie.'], correct: 1, hint: 'Participio de "see" = "seen".' },
+      { id: 'pp4', type: 'multiple-choice', question: 'Completa: "How long ___ you lived here?" (¿Cuánto tiempo has vivido aquí?)', options: ['do', 'did', 'have', 'are'], correct: 2 },
+      { id: 'pp5', type: 'multiple-choice', question: '¿Cuándo se usa "have + ever"?', options: ['Para acciones futuras', 'Para preguntar si alguna vez has hecho algo', 'Para acciones presentes', 'Solo en negativas'], correct: 1, hint: 'Ej: "Have you ever traveled abroad?" = ¿Alguna vez has viajado?' },
+      { id: 'pp6', type: 'multiple-choice', question: '"Since" vs "For": "I have lived here ___ 2020."', options: ['since', 'for', 'from', 'during'], correct: 0, hint: '"Since" + punto de inicio (fecha). "For" + duración.' },
+    ],
+  },
+  {
+    id: 'b1-conditionals',
+    title: 'Condicionales 1 y 2',
+    level: 'B1', type: 'grammar', xpReward: 50, coins: 18,
+    exercises: [
+      { id: 'cd1', type: 'multiple-choice', question: 'First Conditional — "If it rains tomorrow, I ___ stay home."', options: ['stay', 'will stay', 'would stay', 'stayed'], correct: 1, hint: 'Primer condicional: If + presente, will + verbo.' },
+      { id: 'cd2', type: 'multiple-choice', question: 'Second Conditional — "If I ___ rich, I would travel the world."', options: ['am', 'was', 'were', 'will be'], correct: 2, hint: 'En segundo condicional con "I", se usa "were" (formal) aunque también se acepta "was".' },
+      { id: 'cd3', type: 'multiple-choice', question: '¿Cuál usar para una situación REAL en el futuro?', options: ['If I won the lottery...', 'If I win the game...', 'If I had won...', 'If I would win...'], correct: 1, hint: 'Real futuro → first conditional (presente).' },
+      { id: 'cd4', type: 'multiple-choice', question: 'Complete: "If I had more time, I ___ exercise more."', options: ['will', 'would', 'am going to', 'can'], correct: 1, hint: 'Second conditional = if + past, would + verbo.' },
+      { id: 'cd5', type: 'multiple-choice', question: 'Choose the unreal/hypothetical:', options: ['If she studies, she will pass.', 'If she studied, she would pass.', 'If she had studied, she would have passed.', 'If she studies, she would pass.'], correct: 1 },
+      { id: 'cd6', type: 'multiple-choice', question: 'Translate: "If I were you, I would tell the truth."', options: ['Si soy tú, le diré la verdad.', 'Si yo fuera tú, le diría la verdad.', 'Si tú fueras yo, le dirías la verdad.', 'Si yo era tú, le dije la verdad.'], correct: 1 },
+    ],
+  },
+  {
+    id: 'b1-reading-1',
+    title: 'Comprensión: An Email',
+    level: 'B1', type: 'vocabulary', xpReward: 55, coins: 20,
+    exercises: [
+      {
+        id: 'rd1', type: 'multiple-choice',
+        question: 'Lee: "Hi Anna, I hope you\'re well. I\'m writing to invite you to my birthday party next Saturday at 7pm at my house. There will be food, drinks and some music. Please let me know if you can come. Best, Marco."\n\n¿Cuándo es la fiesta?',
+        options: ['Next Friday at 7pm', 'Next Saturday at 7pm', 'This Saturday at 8pm', 'Next Sunday at 7pm'],
+        correct: 1,
+      },
+      {
+        id: 'rd2', type: 'multiple-choice',
+        question: 'Del mismo texto: ¿Qué le pide Marco a Anna?',
+        options: ['Que traiga comida', 'Que confirme si puede ir', 'Que invite a más gente', 'Que llegue temprano'],
+        correct: 1,
+        hint: '"Please let me know if you can come" = Por favor avísame si puedes venir.',
+      },
+      {
+        id: 'rd3', type: 'multiple-choice',
+        question: '¿Qué significa "I hope you\'re well"?',
+        options: ['Espero que vengas', 'Espero estés bien', 'Espero te diviertas', 'Espero buenas noticias'],
+        correct: 1,
+      },
+      {
+        id: 'rd4', type: 'multiple-choice',
+        question: 'En un email formal, ¿cuál es la mejor manera de cerrar?',
+        options: ['Bye bye', 'See ya', 'Best regards', 'Cool'],
+        correct: 2,
+        hint: '"Best regards" es formal. "Best" o "Cheers" son más informales pero apropiados.',
+      },
+      {
+        id: 'rd5', type: 'multiple-choice',
+        question: 'How would you politely decline the invitation?',
+        options: [
+          'No, I won\'t come.',
+          'Sorry, I can\'t make it that day.',
+          'I don\'t want to go.',
+          'No way.',
+        ],
+        correct: 1,
+        hint: '"Make it" significa poder asistir/llegar.',
+      },
+    ],
+  },
+  {
+    id: 'b1-phrasal-verbs',
+    title: 'Phrasal Verbs Comunes',
+    level: 'B1', type: 'vocabulary', xpReward: 50, coins: 18,
+    exercises: [
+      { id: 'ph1', type: 'multiple-choice', question: '"Give up" significa:', options: ['Dar arriba', 'Rendirse / Abandonar', 'Devolver', 'Regalar'], correct: 1, hint: 'Ej: "Don\'t give up on your dreams" = No te rindas con tus sueños.' },
+      { id: 'ph2', type: 'multiple-choice', question: '"Look after" significa:', options: ['Mirar atrás', 'Buscar', 'Cuidar de', 'Vigilar'], correct: 2, hint: 'Ej: "I look after my little sister" = Cuido a mi hermanita.' },
+      { id: 'ph3', type: 'multiple-choice', question: '"Find out" significa:', options: ['Encontrarse afuera', 'Descubrir / Averiguar', 'Perder', 'Buscar afuera'], correct: 1, hint: 'Ej: "I want to find out what happened" = Quiero averiguar qué pasó.' },
+      { id: 'ph4', type: 'multiple-choice', question: '"Turn off" significa:', options: ['Girar', 'Apagar', 'Encender', 'Volver'], correct: 1, hint: 'Ej: "Turn off the lights" = Apaga las luces.' },
+      { id: 'ph5', type: 'multiple-choice', question: '"Run out of" significa:', options: ['Correr afuera', 'Quedarse sin', 'Acabar de correr', 'Salir corriendo'], correct: 1, hint: 'Ej: "We ran out of milk" = Se nos acabó la leche.' },
+      { id: 'ph6', type: 'multiple-choice', question: '"Get along with" significa:', options: ['Conseguir junto', 'Llevarse bien con', 'Caminar junto', 'Estar de acuerdo'], correct: 1, hint: 'Ej: "I get along with my classmates" = Me llevo bien con mis compañeros.' },
+    ],
+  },
+  {
+    id: 'b1-academic',
+    title: 'Vocabulario Académico',
+    level: 'B1', type: 'vocabulary', xpReward: 55, coins: 20,
+    exercises: [
+      { id: 'ac1', type: 'multiple-choice', question: '"To analyze" significa:', options: ['Anunciar', 'Analizar', 'Anotar', 'Aprobar'], correct: 1 },
+      { id: 'ac2', type: 'multiple-choice', question: '"Research" significa:', options: ['Búsqueda', 'Investigación', 'Resultado', 'Resumen'], correct: 1, hint: 'Ej: "I\'m doing research on climate" = Estoy investigando sobre el clima.' },
+      { id: 'ac3', type: 'multiple-choice', question: '"To conclude" significa:', options: ['Concluir / Llegar a conclusión', 'Continuar', 'Confirmar', 'Contar'], correct: 0 },
+      { id: 'ac4', type: 'multiple-choice', question: 'Choose the most academic phrase to express opinion:', options: ['I think...', 'In my view, ...', 'I dunno but...', 'Maybe...'], correct: 1, hint: '"In my view" es más formal que "I think".' },
+      { id: 'ac5', type: 'multiple-choice', question: '"Evidence" significa:', options: ['Evento', 'Evidencia / Prueba', 'Examen', 'Ejemplo'], correct: 1 },
+      { id: 'ac6', type: 'multiple-choice', question: '"To argue" en contexto académico significa:', options: ['Pelear', 'Argumentar / Sostener una posición', 'Acordar', 'Aceptar'], correct: 1, hint: 'En inglés académico, "argue" no es pelear sino defender una idea con razones.' },
+    ],
+  },
+
+  // ========== B2 — todo en inglés con ayuda ==========
+  {
+    id: 'b2-conditional-3',
+    title: 'Third Conditional (hubiera/habría)',
+    level: 'B2', type: 'grammar', xpReward: 60, coins: 22,
+    exercises: [
+      { id: 'c31', type: 'multiple-choice', question: 'Complete: "If I ___ studied harder, I would have passed."', options: ['have', 'had', 'would have', 'was'], correct: 1, hint: 'Third conditional: If + had + past participle, would have + past participle.' },
+      { id: 'c32', type: 'multiple-choice', question: 'Complete: "She would have called you if she ___ your number."', options: ['knew', 'had known', 'would know', 'has known'], correct: 1 },
+      { id: 'c33', type: 'multiple-choice', question: 'Translate: "Si hubiera sabido, te habría ayudado."', options: ['If I knew, I would help you.', 'If I had known, I would have helped you.', 'If I know, I will help you.', 'If I had known, I will help you.'], correct: 1 },
+      { id: 'c34', type: 'multiple-choice', question: 'When do we use the third conditional?', options: ['For real future situations', 'For unreal past situations', 'For habits', 'For predictions'], correct: 1, hint: 'It refers to something that did NOT happen in the past.' },
+      { id: 'c35', type: 'multiple-choice', question: 'Inverted form: "Had I known about the problem, I ___ called you."', options: ['will', 'would', 'would have', 'had'], correct: 2, hint: 'Inverted = "Had I known" instead of "If I had known".' },
+      { id: 'c36', type: 'multiple-choice', question: 'Choose the correct sentence:', options: ['If she would have come, we would seen her.', 'If she had come, we would have seen her.', 'If she came, we would have seen her.', 'If she had come, we would see her.'], correct: 1 },
+    ],
+  },
+  {
+    id: 'b2-passive',
+    title: 'Passive Voice',
+    level: 'B2', type: 'grammar', xpReward: 55, coins: 20,
+    exercises: [
+      { id: 'pa1', type: 'multiple-choice', question: 'Active to passive: "They built the house in 1990."', options: ['The house built in 1990.', 'The house was built in 1990.', 'The house has built in 1990.', 'The house is being built in 1990.'], correct: 1 },
+      { id: 'pa2', type: 'multiple-choice', question: 'Complete: "English ___ all over the world."', options: ['speaks', 'is spoken', 'has spoken', 'speaking'], correct: 1, hint: 'Present passive: is/are + past participle.' },
+      { id: 'pa3', type: 'multiple-choice', question: 'When do we use passive voice?', options: ['When the action is not important', 'When the doer is unknown or unimportant', 'Only in writing', 'Only with people'], correct: 1, hint: 'Ej: "My car was stolen" — no sé quién lo robó.' },
+      { id: 'pa4', type: 'multiple-choice', question: 'Past passive: "The letter ___ yesterday."', options: ['delivered', 'is delivered', 'was delivered', 'has delivered'], correct: 2 },
+      { id: 'pa5', type: 'multiple-choice', question: 'Choose the passive form of "She wrote the book":', options: ['The book wrote by her.', 'The book was written by her.', 'The book is wrote by her.', 'The book has wrote by her.'], correct: 1 },
+      { id: 'pa6', type: 'multiple-choice', question: 'Present perfect passive: "The problem ___ already."', options: ['solved', 'is solved', 'has been solved', 'was solved'], correct: 2 },
+    ],
+  },
+  {
+    id: 'b2-reading-1',
+    title: 'Reading: Article about Climate',
+    level: 'B2', type: 'vocabulary', xpReward: 60, coins: 22,
+    exercises: [
+      {
+        id: 'br1', type: 'multiple-choice',
+        question: 'Read: "Climate change is one of the most pressing issues of our time. Scientists worldwide agree that human activities, particularly the burning of fossil fuels, are the primary cause. The consequences include rising sea levels, more extreme weather events, and threats to biodiversity. While governments are taking action, individual choices also matter."\n\nWhat is the main cause of climate change according to the text?',
+        options: ['Volcanic activity', 'Solar radiation', 'Human activities, especially burning fossil fuels', 'Natural climate cycles'],
+        correct: 2,
+      },
+      {
+        id: 'br2', type: 'multiple-choice',
+        question: '¿Qué significa "pressing issues"?',
+        options: ['Temas presionantes / urgentes', 'Temas presentados', 'Temas previos', 'Temas precisos'],
+        correct: 0,
+        hint: '"Pressing" = urgente, apremiante.',
+      },
+      {
+        id: 'br3', type: 'multiple-choice',
+        question: 'According to the text, who is responsible for solving climate change?',
+        options: ['Only governments', 'Only scientists', 'Both governments and individuals', 'Only big companies'],
+        correct: 2,
+        hint: '"While governments are taking action, individual choices also matter."',
+      },
+      {
+        id: 'br4', type: 'multiple-choice',
+        question: 'What does "biodiversity" mean?',
+        options: ['Biology', 'The variety of life forms', 'A biological process', 'Biological warfare'],
+        correct: 1,
+      },
+      {
+        id: 'br5', type: 'multiple-choice',
+        question: 'Choose a synonym for "consequences":',
+        options: ['Causes', 'Results / outcomes', 'Reasons', 'Solutions'],
+        correct: 1,
+      },
+      {
+        id: 'br6', type: 'multiple-choice',
+        question: 'Which sentence best summarizes the text?',
+        options: [
+          'Climate change is not a real problem.',
+          'Climate change is human-caused and requires action from everyone.',
+          'Only scientists can solve climate change.',
+          'Rising sea levels are the only issue.',
+        ],
+        correct: 1,
+      },
+    ],
+  },
+  {
+    id: 'b2-idioms',
+    title: 'Idioms y Expresiones',
+    level: 'B2', type: 'vocabulary', xpReward: 55, coins: 20,
+    exercises: [
+      { id: 'id1', type: 'multiple-choice', question: '"It\'s raining cats and dogs" significa:', options: ['Hay muchos animales en la calle', 'Está lloviendo muchísimo', 'Hace mal tiempo para mascotas', 'Hay tormenta eléctrica'], correct: 1, hint: 'Equivalente: "Llueve a cántaros".' },
+      { id: 'id2', type: 'multiple-choice', question: '"To break the ice" significa:', options: ['Romper hielo literalmente', 'Empezar una conversación / Romper el hielo', 'Enfriarse', 'Estar en problemas'], correct: 1 },
+      { id: 'id3', type: 'multiple-choice', question: '"Once in a blue moon" significa:', options: ['Una vez al mes', 'Muy raramente', 'En luna llena', 'Una sola vez'], correct: 1, hint: '"De vez en cuando" / "Muy de vez en cuando".' },
+      { id: 'id4', type: 'multiple-choice', question: '"Piece of cake" significa:', options: ['Pedazo de pastel literal', 'Algo muy fácil', 'Una recompensa', 'Una porción'], correct: 1, hint: 'Equivalente: "Pan comido" / "Está chupado".' },
+      { id: 'id5', type: 'multiple-choice', question: '"To cost an arm and a leg" significa:', options: ['Tener un accidente', 'Ser muy caro', 'Doler', 'Ser pesado'], correct: 1, hint: 'Equivalente: "Costar un ojo de la cara".' },
+      { id: 'id6', type: 'multiple-choice', question: '"To hit the books" significa:', options: ['Golpear libros', 'Estudiar mucho', 'Comprar libros', 'Aburrirse'], correct: 1, hint: 'Equivalente coloquial: "Ponerse a empollar".' },
+    ],
+  },
+  {
+    id: 'b2-academic-writing',
+    title: 'Academic Writing',
+    level: 'B2', type: 'grammar', xpReward: 60, coins: 22,
+    exercises: [
+      { id: 'aw1', type: 'multiple-choice', question: 'Most formal way to introduce a topic:', options: ['I\'m gonna talk about...', 'Let\'s discuss...', 'This essay will examine...', 'I wanna say...'], correct: 2 },
+      { id: 'aw2', type: 'multiple-choice', question: 'Best connector for contrast in formal writing:', options: ['But', 'However', 'Though', 'Anyway'], correct: 1 },
+      { id: 'aw3', type: 'multiple-choice', question: 'Formal way to express "I think":', options: ['I reckon', 'It seems to me', 'In my opinion / It is widely believed that', 'Methinks'], correct: 2 },
+      { id: 'aw4', type: 'multiple-choice', question: 'Best way to introduce evidence:', options: ['Like, for example,', 'According to research,', 'I heard that', 'You know,'], correct: 1 },
+      { id: 'aw5', type: 'multiple-choice', question: 'Formal alternative to "show":', options: ['demonstrate', 'point out', 'tell', 'display'], correct: 0 },
+      { id: 'aw6', type: 'multiple-choice', question: 'Best way to conclude an essay:', options: ['To sum up / In conclusion,', 'And that\'s it.', 'So yeah,', 'Bye.'], correct: 0 },
+    ],
+  },
+  {
+    id: 'b2-listening-1',
+    title: 'Listening: Conversation',
+    level: 'B2', type: 'listening', xpReward: 60, coins: 22,
+    exercises: [
+      { id: 'lst1', type: 'multiple-choice', question: '"Could you tell me where the train station is?" — ¿Qué pregunta?', options: ['Cómo ir al aeropuerto', 'Dónde queda la estación de tren', 'A qué hora sale el tren', 'Cuánto cuesta el boleto'], correct: 1, hint: '"Tell me where" = dime dónde está.' },
+      { id: 'lst2', type: 'multiple-choice', question: '"I\'m running late, I\'ll be there in 10 minutes." significa:', options: ['Estoy corriendo, llego en 10 min', 'Voy con retraso, llego en 10 min', 'Llego temprano en 10 min', 'No voy a llegar'], correct: 1, hint: '"Running late" = voy tarde / atrasado.' },
+      { id: 'lst3', type: 'multiple-choice', question: '"Would you mind closing the window?" es una forma educada de:', options: ['Preguntar si te importa', 'Pedirle que cierre la ventana', 'Quejarse de la ventana', 'Ofrecer cerrar la ventana'], correct: 1, hint: '"Would you mind + -ing" = forma cortés de pedir algo.' },
+      { id: 'lst4', type: 'multiple-choice', question: 'Customer: "Could I have the bill, please?" — ¿Qué pide?', options: ['El menú', 'La cuenta', 'El cambio', 'La propina'], correct: 1 },
+      { id: 'lst5', type: 'multiple-choice', question: '"Let\'s call it a day." significa:', options: ['Llamemos para hoy', 'Demos por terminado el día', 'Es de día', 'Nombrémoslo el día'], correct: 1, hint: 'Expresión: terminar el trabajo del día.' },
+      { id: 'lst6', type: 'multiple-choice', question: '"It\'s on me" significa:', options: ['Está sobre mí', 'Yo invito / Pago yo', 'Es mi turno', 'Me culpan a mí'], correct: 1, hint: 'En restaurantes: "It\'s on me" = yo pago.' },
+    ],
+  },
 ]
 
 export const getLessonsByLevel = (level: string) =>

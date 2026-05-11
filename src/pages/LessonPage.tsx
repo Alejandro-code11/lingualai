@@ -19,6 +19,10 @@ export default function LessonPage() {
   const [selected, setSelected] = useState<number | null>(null)
   const [correctCount, setCorrectCount] = useState(0)
   const [showHint, setShowHint] = useState(false)
+  // Captura si ya estaba completada AL ENTRAR, no se recalcula después de completar
+  const [wasAlreadyDone] = useState(() =>
+    state.profile?.completedLessons.includes(id ?? '') ?? false
+  )
 
   if (!lesson) return (
     <Layout>
@@ -34,8 +38,6 @@ export default function LessonPage() {
   const exercise = lesson.exercises[currentIndex]
   const total = lesson.exercises.length
   const progress = ((currentIndex) / total) * 100
-  const alreadyDone = state.profile?.completedLessons.includes(lesson.id)
-
   const handleSelect = (idx: number) => {
     if (selected !== null) return
     setSelected(idx)
@@ -46,7 +48,7 @@ export default function LessonPage() {
   const handleNext = async () => {
     if (currentIndex + 1 >= total) {
       setPhase('complete')
-      if (!alreadyDone) {
+      if (!wasAlreadyDone) {
         await completeLesson(lesson.id, lesson.coins, lesson.xpReward, 8)
       }
     } else {
@@ -201,13 +203,13 @@ export default function LessonPage() {
                     <p className="text-xs text-muted">Puntuación</p>
                   </div>
                   <div>
-                    <p className="text-2xl font-bold text-gold">+{alreadyDone ? 0 : lesson.coins}</p>
+                    <p className="text-2xl font-bold text-gold">+{wasAlreadyDone ? 0 : lesson.coins}</p>
                     <p className="text-xs text-muted">Coins</p>
                   </div>
                 </div>
               </div>
 
-              {alreadyDone && (
+              {wasAlreadyDone && (
                 <p className="text-xs text-muted mb-4 bg-surface border border-border rounded-xl p-3">
                   Ya habías completado esta lección — las coins no se duplican. ¡Practica para reforzar!
                 </p>
