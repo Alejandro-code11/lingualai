@@ -8,7 +8,34 @@ export interface Lesson {
   type: 'vocabulary' | 'grammar' | 'listening' | 'speaking'
   xpReward: number
   coins: number
+  durationMin?: number // 5 / 15 / 30
+  category?: 'survival' | 'grammar' | 'conversation'
   exercises: Exercise[]
+}
+
+export interface VocabWord {
+  id: string
+  word: string
+  translation: string
+  example: string
+  exampleTranslation: string
+  level: CEFRLevel
+}
+
+export interface VocabProgress {
+  wordId: string
+  reviews: number
+  correctStreak: number
+  nextReview: string // ISO date
+  mastered: boolean
+}
+
+export interface Achievement {
+  id: string
+  title: string
+  description: string
+  emoji: string
+  condition: (profile: UserProfile) => boolean
 }
 
 export interface Exercise {
@@ -49,4 +76,8 @@ export interface UserProfile {
   equippedItems: Record<string, string>
   skinTone: string
   createdAt: string
+  vocabProgress?: VocabProgress[]
+  unlockedAchievements?: string[]
+  lastVisitedPage?: string
+  dailyXpHistory?: { date: string; xp: number }[]
 }

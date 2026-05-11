@@ -58,7 +58,15 @@ function gameReducer(state: GameState, action: GameAction): GameState {
     case 'SET_LOADED': return { ...state, isLoaded: true }
     case 'ADD_COINS': return { ...state, profile: { ...p, coins: p.coins + action.payload } }
     case 'SPEND_COINS': return { ...state, profile: { ...p, coins: Math.max(0, p.coins - action.payload) } }
-    case 'ADD_XP': return { ...state, profile: { ...p, xp: p.xp + action.payload } }
+    case 'ADD_XP': {
+      const today = new Date().toDateString()
+      const history = p.dailyXpHistory ?? []
+      const existing = history.find(h => h.date === today)
+      const newHistory = existing
+        ? history.map(h => h.date === today ? { ...h, xp: h.xp + action.payload } : h)
+        : [...history.slice(-29), { date: today, xp: action.payload }]
+      return { ...state, profile: { ...p, xp: p.xp + action.payload, dailyXpHistory: newHistory } }
+    }
     case 'SET_LEVEL': return { ...state, profile: { ...p, level: action.payload } }
     case 'SET_LANGUAGE': return { ...state, profile: { ...p, language: action.payload } }
     case 'COMPLETE_LESSON': {

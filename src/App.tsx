@@ -1,9 +1,8 @@
-import { lazy, Suspense } from 'react'
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
+import { lazy, Suspense, useEffect } from 'react'
+import { BrowserRouter, Routes, Route, Navigate, useNavigate, useLocation } from 'react-router-dom'
 import { AuthProvider, useAuth } from './contexts/AuthContext'
 import { GameProvider } from './contexts/GameContext'
 
-// Code splitting — cada página se carga solo cuando se necesita
 const Landing = lazy(() => import('./pages/Landing'))
 const Login = lazy(() => import('./pages/Login'))
 const LanguageSelect = lazy(() => import('./pages/LanguageSelect'))
@@ -13,6 +12,9 @@ const LessonPage = lazy(() => import('./pages/LessonPage'))
 const LessonsPage = lazy(() => import('./pages/LessonsPage'))
 const StorePage = lazy(() => import('./pages/StorePage'))
 const TutorPage = lazy(() => import('./pages/TutorPage'))
+const EmergencyMode = lazy(() => import('./pages/EmergencyMode'))
+const VocabularyPage = lazy(() => import('./pages/VocabularyPage'))
+const AchievementsPage = lazy(() => import('./pages/AchievementsPage'))
 
 function LoadingScreen() {
   return (
@@ -32,34 +34,77 @@ function ProtectedRoute({ children }: { children: React.ReactNode }) {
   return <>{children}</>
 }
 
+// Auto-redirect a la última página visitada
+function AutoRedirect({ children }: { children: React.ReactNode }) {
+  const { user, loading } = useAuth()
+  const navigate = useNavigate()
+  const location = useLocation()
+
+  useEffect(() => {
+    if (loading || !user) return
+    if (location.pathname !== '/' && location.pathname !== '/login') return
+    // Si está en landing/login y ya logueado, redirigir a última página
+    const lastPage = localStorage.getItem(`linguaai_lastpage_${user.uid}`)
+    if (lastPage && lastPage !== '/login' && lastPage !== '/') {
+      navigate(lastPage, { replace: true })
+    } else {
+      navigate('/dashboard', { replace: true })
+    }
+  }, [user, loading, location.pathname, navigate])
+
+  return <>{children}</>
+}
+
+// Trackeador de última página
+function PageTracker() {
+  const location = useLocation()
+  const { user } = useAuth()
+  useEffect(() => {
+    if (!user) return
+    if (location.pathname === '/login' || location.pathname === '/') return
+    localStorage.setItem(`linguaai_lastpage_${user.uid}`, location.pathname)
+  }, [location.pathname, user])
+  return null
+}
+
 function AppRoutes() {
   return (
-    <Suspense fallback={<LoadingScreen />}>
-      <Routes>
-        <Route path="/" element={<Landing />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/placement-quiz" element={<PlacementQuiz />} />
-        <Route path="/language-select" element={
-          <ProtectedRoute><GameProvider><LanguageSelect /></GameProvider></ProtectedRoute>
-        } />
-        <Route path="/dashboard" element={
-          <ProtectedRoute><GameProvider><Dashboard /></GameProvider></ProtectedRoute>
-        } />
-        <Route path="/lessons" element={
-          <ProtectedRoute><GameProvider><LessonsPage /></GameProvider></ProtectedRoute>
-        } />
-        <Route path="/lessons/:id" element={
-          <ProtectedRoute><GameProvider><LessonPage /></GameProvider></ProtectedRoute>
-        } />
-        <Route path="/store" element={
-          <ProtectedRoute><GameProvider><StorePage /></GameProvider></ProtectedRoute>
-        } />
-        <Route path="/tutor" element={
-          <ProtectedRoute><GameProvider><TutorPage /></GameProvider></ProtectedRoute>
-        } />
-        <Route path="*" element={<Navigate to="/" replace />} />
-      </Routes>
-    </Suspense>
+    <>
+      <PageTracker />
+      <Suspense fallback={<LoadingScreen />}>
+        <Routes>
+          <Route path="/" element={<AutoRedirect><Landing /></AutoRedirect>} />
+          <Route path="/login" element={<AutoRedirect><Login /></AutoRedirect>} />
+          <Route path="/placement-quiz" element={<PlacementQuiz />} />
+          <Route path="/emergency" element={<EmergencyMode />} />
+          <Route path="/language-select" element={
+            <ProtectedRoute><GameProvider><LanguageSelect /></GameProvider></ProtectedRoute>
+          } />
+          <Route path="/dashboard" element={
+            <ProtectedRoute><GameProvider><Dashboard /></GameProvider></ProtectedRoute>
+          } />
+          <Route path="/lessons" element={
+            <ProtectedRoute><GameProvider><LessonsPage /></GameProvider></ProtectedRoute>
+          } />
+          <Route path="/lessons/:id" element={
+            <ProtectedRoute><GameProvider><LessonPage /></GameProvider></ProtectedRoute>
+          } />
+          <Route path="/vocabulary" element={
+            <ProtectedRoute><GameProvider><VocabularyPage /></GameProvider></ProtectedRoute>
+          } />
+          <Route path="/achievements" element={
+            <ProtectedRoute><GameProvider><AchievementsPage /></GameProvider></ProtectedRoute>
+          } />
+          <Route path="/store" element={
+            <ProtectedRoute><GameProvider><StorePage /></GameProvider></ProtectedRoute>
+          } />
+          <Route path="/tutor" element={
+            <ProtectedRoute><GameProvider><TutorPage /></GameProvider></ProtectedRoute>
+          } />
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
+      </Suspense>
+    </>
   )
 }
 

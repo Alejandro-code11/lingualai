@@ -8,7 +8,7 @@ export const lessons: Lesson[] = [
     level: 'A1',
     type: 'vocabulary',
     xpReward: 30,
-    coins: 10,
+    coins: 10, durationMin: 5, category: 'survival',
     exercises: [
       {
         id: 'g1', type: 'multiple-choice',
@@ -60,7 +60,7 @@ export const lessons: Lesson[] = [
     level: 'A1',
     type: 'vocabulary',
     xpReward: 25,
-    coins: 8,
+    coins: 8, durationMin: 5, category: 'survival',
     exercises: [
       {
         id: 'n1', type: 'multiple-choice',
@@ -101,7 +101,7 @@ export const lessons: Lesson[] = [
     level: 'A1',
     type: 'vocabulary',
     xpReward: 20,
-    coins: 8,
+    coins: 8, durationMin: 5, category: 'survival',
     exercises: [
       {
         id: 'c1', type: 'multiple-choice',
@@ -141,7 +141,7 @@ export const lessons: Lesson[] = [
     level: 'A1',
     type: 'vocabulary',
     xpReward: 25,
-    coins: 8,
+    coins: 8, durationMin: 5, category: 'survival',
     exercises: [
       {
         id: 'd1', type: 'multiple-choice',
@@ -181,7 +181,7 @@ export const lessons: Lesson[] = [
     level: 'A1',
     type: 'grammar',
     xpReward: 35,
-    coins: 12,
+    coins: 12, durationMin: 10, category: 'survival',
     exercises: [
       {
         id: 'v1', type: 'multiple-choice',
@@ -226,7 +226,7 @@ export const lessons: Lesson[] = [
     level: 'A1',
     type: 'vocabulary',
     xpReward: 30,
-    coins: 10,
+    coins: 10, durationMin: 5, category: 'survival',
     exercises: [
       {
         id: 'cl1', type: 'multiple-choice',
@@ -278,7 +278,7 @@ export const lessons: Lesson[] = [
     level: 'A2',
     type: 'grammar',
     xpReward: 40,
-    coins: 15,
+    coins: 15, durationMin: 15, category: 'grammar',
     exercises: [
       {
         id: 'pc1', type: 'multiple-choice',
@@ -328,7 +328,7 @@ export const lessons: Lesson[] = [
     level: 'A2',
     type: 'grammar',
     xpReward: 40,
-    coins: 15,
+    coins: 15, durationMin: 15, category: 'grammar',
     exercises: [
       {
         id: 'ps1', type: 'multiple-choice',
@@ -378,7 +378,7 @@ export const lessons: Lesson[] = [
     level: 'A2',
     type: 'vocabulary',
     xpReward: 30,
-    coins: 12,
+    coins: 12, durationMin: 10, category: 'survival',
     exercises: [
       {
         id: 'f1', type: 'multiple-choice',
@@ -433,7 +433,7 @@ export const lessons: Lesson[] = [
   {
     id: 'a1-family',
     title: 'La Familia',
-    level: 'A1', type: 'vocabulary', xpReward: 30, coins: 10,
+    level: 'A1', type: 'vocabulary', xpReward: 30, coins: 10, durationMin: 5, category: 'survival',
     exercises: [
       { id: 'fa1', type: 'multiple-choice', question: '¿Cómo se dice "madre" en inglés?', options: ['Father', 'Mother', 'Sister', 'Brother'], correct: 1 },
       { id: 'fa2', type: 'multiple-choice', question: '¿Qué significa "brother"?', options: ['Hermana', 'Padre', 'Hermano', 'Hijo'], correct: 2 },
@@ -445,7 +445,7 @@ export const lessons: Lesson[] = [
   {
     id: 'a1-animals',
     title: 'Los Animales',
-    level: 'A1', type: 'vocabulary', xpReward: 25, coins: 10,
+    level: 'A1', type: 'vocabulary', xpReward: 25, coins: 10, durationMin: 5, category: 'survival',
     exercises: [
       { id: 'an1', type: 'multiple-choice', question: '¿Cómo se dice "perro" en inglés?', options: ['Cat', 'Dog', 'Bird', 'Fish'], correct: 1 },
       { id: 'an2', type: 'multiple-choice', question: '¿Qué animal es un "horse"?', options: ['Vaca', 'Cerdo', 'Caballo', 'Conejo'], correct: 2 },
@@ -457,7 +457,7 @@ export const lessons: Lesson[] = [
   {
     id: 'a1-articles',
     title: 'Artículos: a / an / the',
-    level: 'A1', type: 'grammar', xpReward: 35, coins: 12,
+    level: 'A1', type: 'grammar', xpReward: 35, coins: 12, durationMin: 10, category: 'survival',
     exercises: [
       { id: 'ar1', type: 'multiple-choice', question: 'Completa: "I have ___ apple." (Tengo una manzana)', options: ['a', 'an', 'the', 'some'], correct: 1, hint: '"Apple" empieza con vocal → "an".' },
       { id: 'ar2', type: 'multiple-choice', question: 'Completa: "She is ___ teacher." (Ella es maestra)', options: ['a', 'an', 'the', '—'], correct: 0, hint: '"Teacher" empieza con consonante → "a".' },
@@ -471,7 +471,7 @@ export const lessons: Lesson[] = [
   {
     id: 'a2-future',
     title: 'Futuro: going to / will',
-    level: 'A2', type: 'grammar', xpReward: 40, coins: 15,
+    level: 'A2', type: 'grammar', xpReward: 40, coins: 15, durationMin: 15, category: 'grammar',
     exercises: [
       { id: 'fu1', type: 'multiple-choice', question: 'Completa: "Tomorrow I ___ visit my grandma." (Mañana voy a visitar)', options: ['will', 'am going to', 'going', 'goes'], correct: 1, hint: 'Plan futuro = "going to + verbo".' },
       { id: 'fu2', type: 'multiple-choice', question: 'Para una decisión espontánea: "OK, I ___ help you."', options: ['will', 'am going to', 'going to', 'go to'], correct: 0, hint: '"Will" para decisiones de ese momento.' },
@@ -483,7 +483,7 @@ export const lessons: Lesson[] = [
   {
     id: 'a2-comparatives',
     title: 'Comparativos y Superlativos',
-    level: 'A2', type: 'grammar', xpReward: 40, coins: 15,
+    level: 'A2', type: 'grammar', xpReward: 40, coins: 15, durationMin: 15, category: 'grammar',
     exercises: [
       { id: 'cm1', type: 'multiple-choice', question: 'Completa: "She is ___ than me." (más alta que yo)', options: ['tall', 'taller', 'tallest', 'more tall'], correct: 1, hint: 'Adjetivos cortos: +er.' },
       { id: 'cm2', type: 'multiple-choice', question: '¿Cuál es el superlativo de "good"?', options: ['Gooder', 'Better', 'Best', 'More good'], correct: 2, hint: '"Good" es irregular: good → better → best.' },
@@ -495,7 +495,7 @@ export const lessons: Lesson[] = [
   {
     id: 'a2-modals',
     title: 'Modales: can / should / must',
-    level: 'A2', type: 'grammar', xpReward: 40, coins: 15,
+    level: 'A2', type: 'grammar', xpReward: 40, coins: 15, durationMin: 15, category: 'grammar',
     exercises: [
       { id: 'mo1', type: 'multiple-choice', question: 'Completa: "I ___ speak English." (Puedo hablar inglés)', options: ['can', 'must', 'should', 'have to'], correct: 0, hint: '"Can" expresa habilidad.' },
       { id: 'mo2', type: 'multiple-choice', question: 'Completa: "You ___ study for the exam." (Deberías estudiar)', options: ['can', 'must', 'should', 'might'], correct: 2, hint: '"Should" expresa consejo o recomendación.' },
@@ -509,7 +509,7 @@ export const lessons: Lesson[] = [
   {
     id: 'b1-present-perfect',
     title: 'Present Perfect (have + participio)',
-    level: 'B1', type: 'grammar', xpReward: 50, coins: 18,
+    level: 'B1', type: 'grammar', xpReward: 50, coins: 18, durationMin: 15, category: 'grammar',
     exercises: [
       { id: 'pp1', type: 'multiple-choice', question: 'Completa: "I ___ never been to Europe." (Nunca he estado en Europa)', options: ['am', 'was', 'have', 'had'], correct: 2, hint: 'Present perfect = have/has + participio.' },
       { id: 'pp2', type: 'multiple-choice', question: 'Completa: "She ___ just finished her homework."', options: ['have', 'has', 'is', 'was'], correct: 1, hint: 'She/He/It → "has".' },
@@ -522,7 +522,7 @@ export const lessons: Lesson[] = [
   {
     id: 'b1-conditionals',
     title: 'Condicionales 1 y 2',
-    level: 'B1', type: 'grammar', xpReward: 50, coins: 18,
+    level: 'B1', type: 'grammar', xpReward: 50, coins: 18, durationMin: 15, category: 'grammar',
     exercises: [
       { id: 'cd1', type: 'multiple-choice', question: 'First Conditional — "If it rains tomorrow, I ___ stay home."', options: ['stay', 'will stay', 'would stay', 'stayed'], correct: 1, hint: 'Primer condicional: If + presente, will + verbo.' },
       { id: 'cd2', type: 'multiple-choice', question: 'Second Conditional — "If I ___ rich, I would travel the world."', options: ['am', 'was', 'were', 'will be'], correct: 2, hint: 'En segundo condicional con "I", se usa "were" (formal) aunque también se acepta "was".' },
@@ -535,7 +535,7 @@ export const lessons: Lesson[] = [
   {
     id: 'b1-reading-1',
     title: 'Comprensión: An Email',
-    level: 'B1', type: 'vocabulary', xpReward: 55, coins: 20,
+    level: 'B1', type: 'vocabulary', xpReward: 55, coins: 20, durationMin: 20, category: 'conversation',
     exercises: [
       {
         id: 'rd1', type: 'multiple-choice',
@@ -580,7 +580,7 @@ export const lessons: Lesson[] = [
   {
     id: 'b1-phrasal-verbs',
     title: 'Phrasal Verbs Comunes',
-    level: 'B1', type: 'vocabulary', xpReward: 50, coins: 18,
+    level: 'B1', type: 'vocabulary', xpReward: 50, coins: 18, durationMin: 15, category: 'grammar',
     exercises: [
       { id: 'ph1', type: 'multiple-choice', question: '"Give up" significa:', options: ['Dar arriba', 'Rendirse / Abandonar', 'Devolver', 'Regalar'], correct: 1, hint: 'Ej: "Don\'t give up on your dreams" = No te rindas con tus sueños.' },
       { id: 'ph2', type: 'multiple-choice', question: '"Look after" significa:', options: ['Mirar atrás', 'Buscar', 'Cuidar de', 'Vigilar'], correct: 2, hint: 'Ej: "I look after my little sister" = Cuido a mi hermanita.' },
@@ -593,7 +593,7 @@ export const lessons: Lesson[] = [
   {
     id: 'b1-academic',
     title: 'Vocabulario Académico',
-    level: 'B1', type: 'vocabulary', xpReward: 55, coins: 20,
+    level: 'B1', type: 'vocabulary', xpReward: 55, coins: 20, durationMin: 20, category: 'conversation',
     exercises: [
       { id: 'ac1', type: 'multiple-choice', question: '"To analyze" significa:', options: ['Anunciar', 'Analizar', 'Anotar', 'Aprobar'], correct: 1 },
       { id: 'ac2', type: 'multiple-choice', question: '"Research" significa:', options: ['Búsqueda', 'Investigación', 'Resultado', 'Resumen'], correct: 1, hint: 'Ej: "I\'m doing research on climate" = Estoy investigando sobre el clima.' },
@@ -608,7 +608,7 @@ export const lessons: Lesson[] = [
   {
     id: 'b2-conditional-3',
     title: 'Third Conditional (hubiera/habría)',
-    level: 'B2', type: 'grammar', xpReward: 60, coins: 22,
+    level: 'B2', type: 'grammar', xpReward: 60, coins: 22, durationMin: 25, category: 'conversation',
     exercises: [
       { id: 'c31', type: 'multiple-choice', question: 'Complete: "If I ___ studied harder, I would have passed."', options: ['have', 'had', 'would have', 'was'], correct: 1, hint: 'Third conditional: If + had + past participle, would have + past participle.' },
       { id: 'c32', type: 'multiple-choice', question: 'Complete: "She would have called you if she ___ your number."', options: ['knew', 'had known', 'would know', 'has known'], correct: 1 },
@@ -621,7 +621,7 @@ export const lessons: Lesson[] = [
   {
     id: 'b2-passive',
     title: 'Passive Voice',
-    level: 'B2', type: 'grammar', xpReward: 55, coins: 20,
+    level: 'B2', type: 'grammar', xpReward: 55, coins: 20, durationMin: 20, category: 'conversation',
     exercises: [
       { id: 'pa1', type: 'multiple-choice', question: 'Active to passive: "They built the house in 1990."', options: ['The house built in 1990.', 'The house was built in 1990.', 'The house has built in 1990.', 'The house is being built in 1990.'], correct: 1 },
       { id: 'pa2', type: 'multiple-choice', question: 'Complete: "English ___ all over the world."', options: ['speaks', 'is spoken', 'has spoken', 'speaking'], correct: 1, hint: 'Present passive: is/are + past participle.' },
@@ -634,7 +634,7 @@ export const lessons: Lesson[] = [
   {
     id: 'b2-reading-1',
     title: 'Reading: Article about Climate',
-    level: 'B2', type: 'vocabulary', xpReward: 60, coins: 22,
+    level: 'B2', type: 'vocabulary', xpReward: 60, coins: 22, durationMin: 25, category: 'conversation',
     exercises: [
       {
         id: 'br1', type: 'multiple-choice',
@@ -684,7 +684,7 @@ export const lessons: Lesson[] = [
   {
     id: 'b2-idioms',
     title: 'Idioms y Expresiones',
-    level: 'B2', type: 'vocabulary', xpReward: 55, coins: 20,
+    level: 'B2', type: 'vocabulary', xpReward: 55, coins: 20, durationMin: 20, category: 'conversation',
     exercises: [
       { id: 'id1', type: 'multiple-choice', question: '"It\'s raining cats and dogs" significa:', options: ['Hay muchos animales en la calle', 'Está lloviendo muchísimo', 'Hace mal tiempo para mascotas', 'Hay tormenta eléctrica'], correct: 1, hint: 'Equivalente: "Llueve a cántaros".' },
       { id: 'id2', type: 'multiple-choice', question: '"To break the ice" significa:', options: ['Romper hielo literalmente', 'Empezar una conversación / Romper el hielo', 'Enfriarse', 'Estar en problemas'], correct: 1 },
@@ -697,7 +697,7 @@ export const lessons: Lesson[] = [
   {
     id: 'b2-academic-writing',
     title: 'Academic Writing',
-    level: 'B2', type: 'grammar', xpReward: 60, coins: 22,
+    level: 'B2', type: 'grammar', xpReward: 60, coins: 22, durationMin: 25, category: 'conversation',
     exercises: [
       { id: 'aw1', type: 'multiple-choice', question: 'Most formal way to introduce a topic:', options: ['I\'m gonna talk about...', 'Let\'s discuss...', 'This essay will examine...', 'I wanna say...'], correct: 2 },
       { id: 'aw2', type: 'multiple-choice', question: 'Best connector for contrast in formal writing:', options: ['But', 'However', 'Though', 'Anyway'], correct: 1 },
@@ -710,7 +710,7 @@ export const lessons: Lesson[] = [
   {
     id: 'b2-listening-1',
     title: 'Listening: Conversation',
-    level: 'B2', type: 'listening', xpReward: 60, coins: 22,
+    level: 'B2', type: 'listening', xpReward: 60, coins: 22, durationMin: 25, category: 'conversation',
     exercises: [
       { id: 'lst1', type: 'multiple-choice', question: '"Could you tell me where the train station is?" — ¿Qué pregunta?', options: ['Cómo ir al aeropuerto', 'Dónde queda la estación de tren', 'A qué hora sale el tren', 'Cuánto cuesta el boleto'], correct: 1, hint: '"Tell me where" = dime dónde está.' },
       { id: 'lst2', type: 'multiple-choice', question: '"I\'m running late, I\'ll be there in 10 minutes." significa:', options: ['Estoy corriendo, llego en 10 min', 'Voy con retraso, llego en 10 min', 'Llego temprano en 10 min', 'No voy a llegar'], correct: 1, hint: '"Running late" = voy tarde / atrasado.' },
