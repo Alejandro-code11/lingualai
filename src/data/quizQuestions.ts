@@ -1,0 +1,163 @@
+import type { QuizQuestion } from '../types'
+
+export const quizQuestions: QuizQuestion[] = [
+  // A1
+  {
+    id: 1, level: 'A1',
+    question: 'What does "Hello" mean in Spanish?',
+    options: ['Adiós', 'Hola', 'Gracias', 'Por favor'],
+    correct: 1,
+    explanation: '"Hello" significa "Hola" en español.',
+  },
+  {
+    id: 2, level: 'A1',
+    question: 'Complete: "My name ___ Maria."',
+    options: ['are', 'am', 'is', 'be'],
+    correct: 2,
+    explanation: 'Con "My name" (tercera persona) usamos "is".',
+  },
+  {
+    id: 3, level: 'A1',
+    question: 'Which number comes after "seven"?',
+    options: ['Six', 'Nine', 'Eight', 'Ten'],
+    correct: 2,
+    explanation: 'Seven (7) → Eight (8) → Nine (9) → Ten (10).',
+  },
+  {
+    id: 4, level: 'A1',
+    question: 'What color is the sky on a clear day?',
+    options: ['Red', 'Green', 'Yellow', 'Blue'],
+    correct: 3,
+    explanation: 'The sky is blue — el cielo es azul.',
+  },
+  {
+    id: 5, level: 'A1',
+    question: '"Good morning" is used when?',
+    options: ['At night', 'In the afternoon', 'In the morning', 'At noon'],
+    correct: 2,
+    explanation: '"Good morning" se usa por la mañana.',
+  },
+  // A2
+  {
+    id: 6, level: 'A2',
+    question: 'Which sentence is correct?',
+    options: ['She go to school', 'She goes to school', 'She going to school', 'She goed to school'],
+    correct: 1,
+    explanation: 'Con she/he/it en presente simple añadimos -s o -es al verbo.',
+  },
+  {
+    id: 7, level: 'A2',
+    question: 'What is the past tense of "go"?',
+    options: ['Goed', 'Goes', 'Went', 'Gone'],
+    correct: 2,
+    explanation: '"Go" es un verbo irregular. Su pasado es "went".',
+  },
+  {
+    id: 8, level: 'A2',
+    question: 'Complete: "Yesterday I ___ to the store."',
+    options: ['go', 'goes', 'going', 'went'],
+    correct: 3,
+    explanation: '"Yesterday" indica pasado, entonces usamos "went".',
+  },
+  {
+    id: 9, level: 'A2',
+    question: 'What does "although" mean?',
+    options: ['Porque', 'Entonces', 'Aunque', 'Después'],
+    correct: 2,
+    explanation: '"Although" significa "aunque" — introduce una idea contraria.',
+  },
+  {
+    id: 10, level: 'A2',
+    question: 'Complete: "I have been studying English ___ two years."',
+    options: ['since', 'during', 'for', 'while'],
+    correct: 2,
+    explanation: 'Con un período de tiempo (two years) usamos "for". "Since" va con un punto de inicio.',
+  },
+  // B1
+  {
+    id: 11, level: 'B1',
+    question: 'Which word means the same as "happy"?',
+    options: ['Sad', 'Angry', 'Joyful', 'Tired'],
+    correct: 2,
+    explanation: '"Joyful" es un sinónimo de "happy" — significa alegre.',
+  },
+  {
+    id: 12, level: 'B1',
+    question: 'Complete: "If I ___ more time, I would study more."',
+    options: ['have', 'has', 'having', 'had'],
+    correct: 3,
+    explanation: 'Segunda condicional: "If + past simple, would + infinitive". Usamos "had".',
+  },
+  {
+    id: 13, level: 'B1',
+    question: 'Which sentence is correct?',
+    options: [
+      'She telled me she was tired',
+      'She told me that she is tired',
+      'She told me that she was tired',
+      'She said me she was tired',
+    ],
+    correct: 2,
+    explanation: 'Reported speech: "told me that she was tired" — verbo en pasado + "told" (no "said me").',
+  },
+  {
+    id: 14, level: 'B1',
+    question: 'Choose the correct preposition: "I\'m interested ___ learning English."',
+    options: ['on', 'at', 'in', 'by'],
+    correct: 2,
+    explanation: '"Interested in" es la colocación correcta en inglés.',
+  },
+  {
+    id: 15, level: 'B1',
+    question: 'What does "nevertheless" mean?',
+    options: ['Además', 'Por lo tanto', 'En cambio', 'Sin embargo'],
+    correct: 3,
+    explanation: '"Nevertheless" significa "sin embargo" — equivalente a "however".',
+  },
+  // B2
+  {
+    id: 16, level: 'B2',
+    question: 'Complete: "By the time he arrives, we ___ for two hours."',
+    options: ['are waiting', 'will be waiting', 'waited', 'will have been waiting'],
+    correct: 3,
+    explanation: 'Future Perfect Continuous: acción que habrá estado ocurriendo hasta un punto futuro.',
+  },
+  {
+    id: 17, level: 'B2',
+    question: 'What does "ubiquitous" mean?',
+    options: ['Rare and unique', 'Extremely large', 'Present everywhere', 'Very temporary'],
+    correct: 2,
+    explanation: '"Ubiquitous" describe algo que está presente en todas partes.',
+  },
+  {
+    id: 18, level: 'B2',
+    question: 'Choose the most formal option:',
+    options: [
+      'What about the report?',
+      'Can you tell me about the report?',
+      'I want to know about the report.',
+      'I would like to inquire about the report.',
+    ],
+    correct: 3,
+    explanation: '"I would like to inquire" es la opción más formal y apropiada para contextos académicos.',
+  },
+  {
+    id: 19, level: 'B2',
+    question: 'Complete: "Had I known about the problem, I ___ it."',
+    options: ['would solve', 'had solved', 'would have solved', 'was solving'],
+    correct: 2,
+    explanation: 'Tercera condicional invertida: "Had I known... would have + past participle".',
+  },
+  {
+    id: 20, level: 'B2',
+    question: 'What is the correct passive form of "They are building a new hospital"?',
+    options: [
+      'A new hospital is being built.',
+      'A new hospital has been built.',
+      'A new hospital was built.',
+      'A new hospital will be built.',
+    ],
+    correct: 0,
+    explanation: 'Presente continuo pasivo: "is/are being + past participle".',
+  },
+]
