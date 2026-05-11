@@ -1,15 +1,6 @@
 export type CEFRLevel = 'A1' | 'A2' | 'B1' | 'B2' | 'C1' | 'C2'
 export type Language = 'english' | 'italian' | 'german' | 'french'
 
-export interface QuizQuestion {
-  id: number
-  level: CEFRLevel
-  question: string
-  options: string[]
-  correct: number
-  explanation: string
-}
-
 export interface Lesson {
   id: string
   title: string
