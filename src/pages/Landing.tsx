@@ -85,7 +85,7 @@ export default function Landing() {
             Empezar gratis <ChevronRight size={20} />
           </button>
           <button
-            onClick={() => navigate('/login')}
+            onClick={() => navigate('/placement-quiz')}
             className="bg-surface border border-border text-textbase font-medium px-8 py-4 rounded-2xl text-lg hover:border-primary/40 transition-all"
           >
             Ver mi nivel →
