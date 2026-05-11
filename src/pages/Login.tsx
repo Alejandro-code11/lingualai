@@ -16,15 +16,8 @@ export default function Login() {
   const [showPassword, setShowPassword] = useState(false)
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
-  const [isNewUser, setIsNewUser] = useState(false)
-
-  const afterAuth = (newUser: boolean) => {
-    if (newUser) {
-      setIsNewUser(true)
-      setScreen('choose')
-    } else {
-      navigate('/dashboard')
-    }
+  const afterAuth = () => {
+    setScreen('choose')
   }
 
   const handleGoogle = async () => {
@@ -52,7 +45,7 @@ export default function Login() {
         navigate('/dashboard')
       } else {
         await signUpWithEmail(email, password)
-        afterAuth(true)
+        afterAuth()
       }
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : ''
