@@ -8,7 +8,7 @@ import {
   onAuthStateChanged,
 } from 'firebase/auth'
 import type { User } from 'firebase/auth'
-import { auth, googleProvider } from '../lib/firebase'
+import { auth, googleProvider, isFirebaseConfigured } from '../lib/firebase'
 
 interface AuthContextType {
   user: User | null
@@ -26,6 +26,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
+    if (!isFirebaseConfigured) {
+      setLoading(false)
+      return
+    }
     const unsub = onAuthStateChanged(auth, u => {
       setUser(u)
       setLoading(false)
