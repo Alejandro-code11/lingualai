@@ -128,7 +128,18 @@ export function GameProvider({ children }: { children: ReactNode }) {
     if (snap.exists()) {
       dispatch({ type: 'SET_PROFILE', payload: snap.data() as UserProfile })
     } else {
+      // Recover quiz level and guest progress if exists
+      const savedLevel = localStorage.getItem('linguaai_quiz_level') as CEFRLevel | null
+      const guestData = localStorage.getItem('linguaai_guest')
+      const guest = guestData ? JSON.parse(guestData) : null
       const profile = defaultProfile(user.uid, user.email ?? '', user.displayName ?? 'Learner')
+      if (savedLevel) profile.level = savedLevel
+      if (guest) {
+        profile.coins = guest.coins
+        profile.completedLessons = guest.completedLessons
+      }
+      localStorage.removeItem('linguaai_quiz_level')
+      localStorage.removeItem('linguaai_guest')
       await setDoc(ref, profile)
       dispatch({ type: 'SET_PROFILE', payload: profile })
     }

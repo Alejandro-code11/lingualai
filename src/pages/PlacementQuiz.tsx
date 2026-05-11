@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { CheckCircle, XCircle, ChevronRight, Trophy } from 'lucide-react'
 import { quizQuestions } from '../data/quizQuestions'
 import { useGame } from '../contexts/GameContext'
+import { useAuth } from '../contexts/AuthContext'
 import type { CEFRLevel } from '../types'
 
 type QuizPhase = 'intro' | 'question' | 'feedback' | 'result'
@@ -32,6 +33,7 @@ const levelMsg: Record<string, string> = {
 
 export default function PlacementQuiz() {
   const { dispatch, saveProfile } = useGame()
+  const { user } = useAuth()
   const navigate = useNavigate()
   const [phase, setPhase] = useState<QuizPhase>('intro')
   const [currentIndex, setCurrentIndex] = useState(0)
@@ -64,11 +66,14 @@ export default function PlacementQuiz() {
     }
   }
 
-  const handleFinish = async () => {
+  const handleFinish = async (goToRegister = false) => {
     dispatch({ type: 'SET_LEVEL', payload: finalLevel })
     dispatch({ type: 'ADD_COINS', payload: 25 })
+    // Guardar nivel en localStorage para recuperarlo después del registro
+    localStorage.setItem('linguaai_quiz_level', finalLevel)
     await saveProfile()
-    navigate('/dashboard')
+    if (goToRegister) navigate('/login')
+    else navigate('/dashboard')
   }
 
   const correctCount = answers.filter(Boolean).length
@@ -250,12 +255,30 @@ export default function PlacementQuiz() {
                 </div>
               </div>
 
-              <button
-                onClick={handleFinish}
-                className="w-full gradient-bg text-white font-semibold py-4 rounded-2xl text-lg glow-primary hover:opacity-90 transition-opacity flex items-center justify-center gap-2"
-              >
-                <Trophy size={20} /> Ir al dashboard
-              </button>
+              {!user ? (
+                <div className="flex flex-col gap-3">
+                  <button
+                    onClick={() => handleFinish(true)}
+                    className="w-full gradient-bg text-white font-semibold py-4 rounded-2xl text-lg glow-primary hover:opacity-90 transition-opacity flex items-center justify-center gap-2"
+                  >
+                    🚀 Crear cuenta y guardar mi resultado
+                  </button>
+                  <p className="text-xs text-muted text-center">Tu nivel <strong className="text-primary-light">{finalLevel}</strong> y tus coins se guardan automáticamente al registrarte</p>
+                  <button
+                    onClick={() => handleFinish(false)}
+                    className="w-full bg-surface border border-border text-muted font-medium py-3 rounded-2xl hover:text-textbase transition-colors text-sm"
+                  >
+                    Explorar sin cuenta →
+                  </button>
+                </div>
+              ) : (
+                <button
+                  onClick={() => handleFinish(false)}
+                  className="w-full gradient-bg text-white font-semibold py-4 rounded-2xl text-lg glow-primary hover:opacity-90 transition-opacity flex items-center justify-center gap-2"
+                >
+                  <Trophy size={20} /> Ir al dashboard
+                </button>
+              )}
             </motion.div>
           )}
 
