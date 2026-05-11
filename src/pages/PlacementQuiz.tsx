@@ -1,5 +1,6 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useAuth } from '../contexts/AuthContext'
 import { motion, AnimatePresence } from 'framer-motion'
 import { CheckCircle, XCircle, ChevronRight } from 'lucide-react'
 import { quizQuestions } from '../data/quizQuestions'
@@ -30,11 +31,19 @@ const levelMsg: Record<string, string> = {
 
 export default function PlacementQuiz() {
   const navigate = useNavigate()
+  const { user } = useAuth()
   const [phase, setPhase] = useState<QuizPhase>('intro')
   const [currentIndex, setCurrentIndex] = useState(0)
   const [selected, setSelected] = useState<number | null>(null)
   const [answers, setAnswers] = useState<boolean[]>([])
   const [finalLevel, setFinalLevel] = useState<CEFRLevel>('A1')
+
+  // Si el usuario se acaba de registrar mientras estaba en resultado, mandarlo al dashboard
+  useEffect(() => {
+    if (user && phase === 'result') {
+      navigate('/dashboard')
+    }
+  }, [user])
 
   const question = quizQuestions[currentIndex]
   const total = quizQuestions.length

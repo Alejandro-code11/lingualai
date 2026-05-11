@@ -195,7 +195,11 @@ export default function Login() {
               <motion.button
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                onClick={() => navigate('/placement-quiz')}
+                onClick={() => {
+                  // Si ya hizo el quiz antes de registrarse, el nivel está guardado — ir al dashboard
+                  const savedLevel = localStorage.getItem('linguaai_quiz_level')
+                  navigate(savedLevel ? '/dashboard' : '/placement-quiz')
+                }}
                 className="glass rounded-2xl p-6 text-left card-hover border-primary/20 hover:border-primary/50"
               >
                 <div className="flex items-start gap-4">
