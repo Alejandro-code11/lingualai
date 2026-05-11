@@ -106,7 +106,18 @@ export function GameProvider({ children }: { children: ReactNode }) {
   const [state, dispatch] = useReducer(gameReducer, { profile: null, sessionMinutes: 0, isLoaded: false })
 
   useEffect(() => {
-    if (!user) { dispatch({ type: 'SET_LOADED' }); return }
+    if (!user) {
+      // Load from localStorage for guest users
+      const saved = localStorage.getItem('linguaai_guest')
+      if (saved) {
+        dispatch({ type: 'SET_PROFILE', payload: JSON.parse(saved) })
+      } else {
+        const guest = defaultProfile('guest', '', 'Estudiante')
+        localStorage.setItem('linguaai_guest', JSON.stringify(guest))
+        dispatch({ type: 'SET_PROFILE', payload: guest })
+      }
+      return
+    }
     loadProfile()
   }, [user])
 
@@ -124,7 +135,11 @@ export function GameProvider({ children }: { children: ReactNode }) {
   }
 
   const saveProfile = async () => {
-    if (!user || !state.profile) return
+    if (!state.profile) return
+    if (!user) {
+      localStorage.setItem('linguaai_guest', JSON.stringify(state.profile))
+      return
+    }
     await setDoc(doc(db, 'users', user.uid), state.profile)
   }
 
