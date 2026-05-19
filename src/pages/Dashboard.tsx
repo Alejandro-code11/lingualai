@@ -1,11 +1,12 @@
 import { useEffect, useRef } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { Flame, Clock, ChevronRight, Trophy, AlertTriangle, Sparkles, Volume2 } from 'lucide-react'
+import { Flame, Clock, ChevronRight, Trophy, AlertTriangle, Sparkles, Volume2, RotateCcw } from 'lucide-react'
 import { useGame } from '../contexts/GameContext'
 import Character from '../components/Character'
 import Layout from '../components/Layout'
-import { getLessonsByLevel, lessons } from '../data/lessons'
+import { getLessonsByLevel, getLessonById, lessons } from '../data/lessons'
+import type { Lesson } from '../types'
 import { getDailyWords } from '../data/vocabulary'
 import { achievements } from '../data/achievements'
 import { getGreeting, getMotivationalQuote, getLevelLabel } from '../utils/greeting'
@@ -71,6 +72,23 @@ export default function Dashboard() {
   // Logros desbloqueados
   const unlockedAchievements = achievements.filter(a => a.condition(profile))
   const newestAchievement = unlockedAchievements[unlockedAchievements.length - 1]
+
+  // Repasa esto: últimas 3 lecciones completadas
+  const reviewLessons = [...profile.completedLessons]
+    .reverse()
+    .slice(0, 3)
+    .map(id => getLessonById(id))
+    .filter(Boolean) as Lesson[]
+
+  // Milestones de metas
+  const now = new Date()
+  const milestones = [
+    { label: 'Clases en inglés', level: 'A2', date: new Date('2026-12-01'), emoji: '🎓' },
+    { label: '50/50 inglés', level: 'B1', date: new Date('2027-01-15'), emoji: '📚' },
+    { label: 'Graduación', level: 'B2', date: new Date('2027-07-01'), emoji: '🏆' },
+  ]
+  const daysUntilNext = milestones.find(m => m.date > now)
+  const daysLeft = daysUntilNext ? Math.ceil((daysUntilNext.date.getTime() - now.getTime()) / 86400000) : 0
 
   // Progreso semanal (XP por día últimos 7 días)
   const today = new Date()
@@ -268,6 +286,69 @@ export default function Dashboard() {
             </div>
           </div>
         </motion.section>
+
+        {/* TU CAMINO — Milestones */}
+        <motion.section initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="mb-6">
+          <div className="flex items-center justify-between mb-3">
+            <h2 className="text-sm font-semibold text-muted uppercase tracking-wider">🎯 Tu camino al B2</h2>
+            {daysUntilNext && (
+              <span className="text-xs text-primary-light font-medium">{daysLeft} días</span>
+            )}
+          </div>
+          <div className="glass rounded-2xl p-5">
+            <div className="space-y-3">
+              {milestones.map((m, i) => {
+                const isPast = m.date <= now
+                const isCurrent = !isPast && (i === 0 || milestones[i - 1].date <= now)
+                return (
+                  <div key={m.label} className={`flex items-center gap-3 ${isPast ? 'opacity-50' : ''}`}>
+                    <div className={`w-9 h-9 rounded-full flex items-center justify-center text-base shrink-0 ${isPast ? 'bg-success/20' : isCurrent ? 'gradient-bg' : 'bg-surface border border-border'}`}>
+                      {isPast ? '✅' : m.emoji}
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className={`text-sm font-medium ${isCurrent ? 'text-textbase' : 'text-muted'}`}>{m.label}</p>
+                      <p className="text-xs text-muted">Meta: {m.level} · {m.date.toLocaleDateString('es', { month: 'long', year: 'numeric' })}</p>
+                    </div>
+                    {isCurrent && (
+                      <span className="text-xs bg-primary/20 text-primary-light px-2 py-0.5 rounded-full shrink-0">En curso</span>
+                    )}
+                    {isPast && (
+                      <span className="text-xs bg-success/20 text-success px-2 py-0.5 rounded-full shrink-0">✓ Listo</span>
+                    )}
+                  </div>
+                )
+              })}
+            </div>
+          </div>
+        </motion.section>
+
+        {/* REPASA ESTO */}
+        {reviewLessons.length > 0 && (
+          <motion.section initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="mb-6">
+            <div className="flex items-center justify-between mb-3">
+              <h2 className="text-sm font-semibold text-muted uppercase tracking-wider">🔁 Repasa esto</h2>
+              <Link to="/lessons" className="text-xs text-primary-light hover:underline">Ver todas →</Link>
+            </div>
+            <div className="space-y-2">
+              {reviewLessons.map(lesson => (
+                <Link
+                  key={lesson.id}
+                  to={`/lessons/${lesson.id}`}
+                  className="glass rounded-xl p-3 flex items-center gap-3 card-hover"
+                >
+                  <div className="w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center text-lg shrink-0">
+                    {lesson.type === 'vocabulary' ? '📚' : lesson.type === 'grammar' ? '✏️' : lesson.type === 'listening' ? '🎧' : '🎤'}
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-sm font-medium text-textbase truncate">{lesson.title}</p>
+                    <p className="text-xs text-muted">{lesson.level} · Repasa para reforzar</p>
+                  </div>
+                  <RotateCcw size={14} className="text-muted shrink-0" />
+                </Link>
+              ))}
+            </div>
+          </motion.section>
+        )}
 
         {/* LOGROS */}
         <motion.section initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="mb-6">
